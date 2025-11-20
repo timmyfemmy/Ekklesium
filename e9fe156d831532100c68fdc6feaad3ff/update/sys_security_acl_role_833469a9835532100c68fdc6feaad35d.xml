@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_security_acl_role">
+    <sys_security_acl_role action="INSERT_OR_UPDATE">
+        <sys_class_name>sys_security_acl_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-11-18 19:28:26</sys_created_on>
+        <sys_id>833469a9835532100c68fdc6feaad35d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0_congregant.x_1644142_ekkles_0.user</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_security_acl display_value="x_1644142_ekkles_0_congregant">473469a9835532100c68fdc6feaad33f</sys_security_acl>
+        <sys_update_name>sys_security_acl_role_833469a9835532100c68fdc6feaad35d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-11-18 19:28:26</sys_updated_on>
+        <sys_user_role display_value="x_1644142_ekkles_0.user" name="x_1644142_ekkles_0.user">39fe556d831532100c68fdc6feaad38d</sys_user_role>
+    </sys_security_acl_role>
+</record_update>
