@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="8d3465a9835532100c68fdc6feaad3bb" label="Congregant" max_length="40" name="x_1644142_ekkles_0_congregant" type="collection">
+        <element label="Home address" max_length="96" name="home_address" type="string"/>
+        <element label="Name" max_length="40" name="name" type="string"/>
         <element label="User" max_length="32" name="user" reference="sys_user" type="reference"/>
+        <element choice="3" label="Gender" max_length="40" name="gender" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Female" sequence="1" value="female"/>
+                <element inactive_on_update="false" label="Male" sequence="0" value="male"/>
+            </choice>
+        </element>
+        <element label="Phone number" max_length="40" name="phone_number" type="phone_number_e164"/>
         <element default="javascript:current.getTableName();" label="Class" max_length="80" name="sys_class_name" type="sys_class_name"/>
         <index name="index">
             <element name="sys_class_name"/>

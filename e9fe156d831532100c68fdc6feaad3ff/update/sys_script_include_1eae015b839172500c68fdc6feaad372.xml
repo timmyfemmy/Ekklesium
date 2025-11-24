@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_1644142_ekkles_0.EkklesiumUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>EkklesiumUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var EkklesiumUtils = Class.create();
+EkklesiumUtils.prototype = {
+    initialize: function() {},
+    getDonationSequenceNumber: function(mode) {
+        //Generate a unique sequence number based on the mode of donation
+        //Pick the system propery  based on mode
+		//x_1644142_ekkles_0.transfer.donation.sequence.number
+        var propertyName = 'x_1644142_ekkles_0.' + mode + '.donation.sequence.number';
+        var sequenceNumber = gs.getProperty(propertyName);
+        //increment the sequence number for next use. Property is string type
+        var nextSequenceNumber = parseInt(sequenceNumber) + 1;
+        gs.setProperty(propertyName, nextSequenceNumber.toString());
+		return sequenceNumber;
+    },
+
+    type: 'EkklesiumUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-11-24 04:28:24</sys_created_on>
+        <sys_id>1eae015b839172500c68fdc6feaad372</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_name>EkklesiumUtils</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_script_include_1eae015b839172500c68fdc6feaad372</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-11-24 05:56:24</sys_updated_on>
+    </sys_script_include>
+</record_update>
