@@ -16,7 +16,7 @@
         <logo>defe956d831532100c68fdc6feaad309</logo>
         <menu display_value="Ekklesium">5caca5a9835532100c68fdc6feaad3c7</menu>
         <name>Ekklesium</name>
-        <package_json/>
+        <package_json display_value="x_1644142_ekkles_0/ekklesium/1.0.0/package.json" path="x_1644142_ekkles_0/ekklesium/1.0.0/package.json">x_1644142_ekkles_0/ekklesium/1.0.0/package.json</package_json>
         <private>false</private>
         <restrict_table_access>false</restrict_table_access>
         <runtime_access_tracking>permissive</runtime_access_tracking>

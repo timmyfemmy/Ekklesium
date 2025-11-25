@@ -18,7 +18,7 @@
         <filter_condition/>
         <is_rest>false</is_rest>
         <message/>
-        <name>Generate Donation Number</name>
+        <name>Generate Donation ID</name>
         <order>100</order>
         <priority>100</priority>
         <rest_method/>
@@ -28,14 +28,32 @@
         <rest_variables/>
         <role_conditions/>
         <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
-
-    // Add your code here
-    //Convert the sys_created date to format "YYYYMMDD"
-    new GlideDateTime(current.sys_created_on).getByFormat("yyyyMMdd");
-    // Get unique sequence number for the mode of donation
-    var uniqueNumber = new EkklesiumUtils.getDonationSequenceNumber(current.mode);
-    // Donation Number Format: "mode"+202511240001+uniqueNumber
-    current.donation_id = current.mode + new GlideDateTime(current.sys_created_on).getByFormat("yyyyMMdd") + uniqueNumber;
+    
+    // Only generate donation ID if mode is specified and donation_id is empty
+    if (!current.mode) {
+        gs.addErrorMessage('No mode specified, skipping donation ID generation');
+        return;
+    }
+    
+    try {
+        // Use current date/time for formatting since sys_created_on might not be set yet
+        var gdt = new GlideDateTime();
+        var formattedDateTime = gdt.getDate().getByFormat("yyyyMMdd") + gdt.getTime().getByFormat("HHmmss");
+        
+        // Get unique sequence number for the mode of donation from EkklesiumUtils left padded with zeros to make it 4 digits
+        var ekklesiumUtils = new EkklesiumUtils();
+        var uniqueNumber = ekklesiumUtils.getDonationSequenceNumber(current.mode);
+        
+        uniqueNumber = uniqueNumber.toString().padStart(4, '0');
+        gs.addInfoMessage('Padded sequence number: ' + uniqueNumber);
+        
+        // Donation Number Format: "mode"+formattedDateTime+uniqueNumber
+        current.donation_id = current.mode + formattedDateTime + uniqueNumber;
+        
+        gs.addInfoMessage('Generated donation ID: ' + current.donation_id);
+    } catch (e) {
+        gs.addErrorMessage('Error generating donation ID: ' + e.message);
+    }
 
 })(current, previous);]]></script>
         <sys_class_name>sys_script</sys_class_name>
@@ -44,15 +62,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>970a4d5f835172500c68fdc6feaad34b</sys_id>
-        <sys_mod_count>4</sys_mod_count>
-        <sys_name>Generate Donation Number</sys_name>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Generate Donation ID</sys_name>
         <sys_overrides/>
         <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
         <sys_policy/>
         <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
         <sys_update_name>sys_script_970a4d5f835172500c68fdc6feaad34b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-11-24 06:24:07</sys_updated_on>
+        <sys_updated_on>2025-11-25 03:38:14</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

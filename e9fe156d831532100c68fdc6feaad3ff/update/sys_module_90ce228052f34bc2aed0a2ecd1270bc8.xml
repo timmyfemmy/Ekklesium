@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "serialNumber": "urn:uuid:0c119704-9bda-4305-b9cb-0aec4e8f94c7",
+  "metadata": {
+    "timestamp": "2025-11-24T23:35:37.036Z",
+    "tools": {
+      "components": [
+        {
+          "type": "library",
+          "name": "sdk-build-plugins",
+          "group": "@servicenow",
+          "version": "0.0.1",
+          "author": "ServiceNow"
+        }
+      ]
+    },
+    "component": {
+      "type": "application",
+      "name": "ekklesium",
+      "version": "1.0.0",
+      "bom-ref": "pkg:servicenow/ekklesium@1.0.0?sys_scope_id=e9fe156d831532100c68fdc6feaad3ff",
+      "description": "Central platform for church administration",
+      "licenses": [
+        {
+          "license": {
+            "name": "UNLICENSED"
+          }
+        }
+      ],
+      "purl": "pkg:servicenow/ekklesium@1.0.0?sys_scope_id=e9fe156d831532100c68fdc6feaad3ff"
+    }
+  },
+  "components": [],
+  "dependencies": [
+    {
+      "ref": "pkg:servicenow/ekklesium@1.0.0?sys_scope_id=e9fe156d831532100c68fdc6feaad3ff"
+    }
+  ]
+}]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/bom.json</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-11-24 07:49:31</sys_created_on>
+        <sys_id>90ce228052f34bc2aed0a2ecd1270bc8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/bom.json</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_90ce228052f34bc2aed0a2ecd1270bc8</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-11-24 07:49:31</sys_updated_on>
+    </sys_module>
+</record_update>

@@ -20,6 +20,7 @@
                 <element inactive_on_update="false" label="Cheque" sequence="1" value="cheque"/>
             </choice>
         </element>
+        <element label="donation_id" max_length="40" name="donation_id" type="string"/>
         <element label="Anonymous" max_length="40" name="anonymous" type="boolean"/>
         <element label="Donor" max_length="40" name="donor" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>

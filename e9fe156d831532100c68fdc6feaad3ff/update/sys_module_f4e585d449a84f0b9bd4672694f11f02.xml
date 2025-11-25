@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[var EkklesiumUtils = Class.create();
+EkklesiumUtils.prototype = {
+    initialize: function() {},
+    getDonationSequenceNumber: function(mode) {
+        //Generate a unique sequence number based on the mode of donation
+        //Pick the system propery  based on mode
+		//x_1644142_ekkles_0.transfer.donation.sequence.number
+        var propertyName = 'x_1644142_ekkles_0.' + mode + '.donation.sequence.number';
+        var sequenceNumber = gs.getProperty(propertyName);
+        //increment the sequence number for next use. Property is string type
+        var nextSequenceNumber = parseInt(sequenceNumber) + 1;
+        gs.setProperty(propertyName, nextSequenceNumber.toString());
+		return sequenceNumber;
+    },
+
+    type: 'EkklesiumUtils'
+};]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/EkklesiumUtils.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-11-25 02:28:06</sys_created_on>
+        <sys_id>f4e585d449a84f0b9bd4672694f11f02</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/EkklesiumUtils.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_f4e585d449a84f0b9bd4672694f11f02</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-11-25 02:28:06</sys_updated_on>
+    </sys_module>
+</record_update>

@@ -4,13 +4,111 @@
             <element>number</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-20 07:24:48</sys_created_on>
-            <sys_id>eac1dd42831176100c68fdc6feaad370</sys_id>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>162cd12f83d9f2500c68fdc6feaad37f</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-20 07:24:48</sys_updated_on>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>amount</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>1a2cd12f83d9f2500c68fdc6feaad380</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>anonymous</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>d22cd12f83d9f2500c68fdc6feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>congregant</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>9e2cd12f83d9f2500c68fdc6feaad381</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>donation_id</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>5a2cd12f83d9f2500c68fdc6feaad382</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>donor</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>162cd12f83d9f2500c68fdc6feaad383</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>mode</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>de2cd12f83d9f2500c68fdc6feaad383</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>purpose</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-25 00:01:00</sys_created_on>
+            <sys_id>9a2cd12f83d9f2500c68fdc6feaad384</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-25 00:01:00</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
