@@ -2,41 +2,183 @@
     <sys_script_include action="INSERT_OR_UPDATE">
         <access>package_private</access>
         <active>true</active>
-        <api_name>x_1644142_ekkles_0.EkklesiumUtils</api_name>
+        <api_name>x_1644142_ekkles_0.DonationUtils</api_name>
         <caller_access/>
         <client_callable>false</client_callable>
         <description/>
         <mobile_callable>false</mobile_callable>
-        <name>EkklesiumUtils</name>
+        <name>DonationUtils</name>
         <sandbox_callable>false</sandbox_callable>
-        <script><![CDATA[var EkklesiumUtils = Class.create();
-EkklesiumUtils.prototype = {
-    initialize: function() {},
-    getDonationSequenceNumber: function(mode) {
-        //Generate a unique sequence number based on the mode of donation
-        //Pick the system propery  based on mode
-		//x_1644142_ekkles_0.transfer.donation.sequence.number
-        var propertyName = 'x_1644142_ekkles_0.' + mode + '.donation.sequence.number';
-        var sequenceNumber = gs.getProperty(propertyName);
-        //increment the sequence number for next use. Property is string type
-        var nextSequenceNumber = parseInt(sequenceNumber) + 1;
-        gs.setProperty(propertyName, nextSequenceNumber.toString());
-		return sequenceNumber;
+        <script><![CDATA[var DonationUtils = Class.create();
+DonationUtils.prototype = Object.extendsObject(EkklesiumUtils, {
+    initialize: function() {
+        this.PROPERTY_PREFIX = 'x_1644142_ekkles_0.';
+        this.SEQUENCE_SUFFIX = '.donation.sequence.number';
+        this.TAX_EXEMPT_PURPOSES = ['building_fund'];
     },
 
-    type: 'EkklesiumUtils'
-};]]></script>
+    /**
+     * Generates a unique donation ID for the specified mode
+     * @param {string} mode - The donation mode (e.g., 'cash', 'transfer')
+     * @param {GlideRecord} current - The current donation record
+     * @return {string} The generated donation ID or null on error
+     */
+    generateDonationId: function(mode, current) {
+        if (!mode) {
+            gs.error('DonationUtils.generateDonationId: mode parameter is required');
+            return null;
+        }
+        
+        try {
+            var sequenceNumber = this.getDonationSequenceNumber(mode);
+            if (!sequenceNumber) {
+                return null;
+            }
+
+            var gdt = current.sys_created_on ? new GlideDateTime(current.sys_created_on) : new GlideDateTime();
+            var formattedDate = gdt.getDate().getByFormat("yyyyMMdd");
+            var formattedTime = gdt.getTime().getByFormat("HHmmss");
+            var paddedSequence = this._padSequenceNumber(sequenceNumber, 4);
+            
+            return mode + formattedDate + formattedTime + paddedSequence;
+        } catch (e) {
+            gs.error('DonationUtils.generateDonationId: ' + e.message);
+            return null;
+        }
+    },
+
+    /**
+     * Gets and increments the donation sequence number atomically
+     * @param {string} mode - The donation mode
+     * @return {string} The current sequence number or null on error
+     */
+    getDonationSequenceNumber: function(mode) {
+        if (!mode) {
+            gs.error('DonationUtils.getDonationSequenceNumber: mode parameter is required');
+            return null;
+        }
+        
+        var propertyName = this.PROPERTY_PREFIX + mode + this.SEQUENCE_SUFFIX;
+        
+        try {
+            var currentValue = gs.getProperty(propertyName, '1000');
+            var sequenceNumber = parseInt(currentValue, 10);
+            
+            if (isNaN(sequenceNumber)) {
+                gs.error('DonationUtils: Invalid sequence number in property ' + propertyName);
+                sequenceNumber = 1000;
+            }
+            
+            var nextSequenceNumber = sequenceNumber + 1;
+            gs.setProperty(propertyName, nextSequenceNumber.toString());
+            
+            return sequenceNumber.toString();
+        } catch (e) {
+            gs.error('DonationUtils.getDonationSequenceNumber: ' + e.message);
+            return null;
+        }
+    },
+
+    /**
+     * Sets the tax deductible status for a donation record
+     * @param {GlideRecord} current - The current donation record
+     * @return {boolean} The tax deductible status that was set
+     */
+    setTaxDeductible: function(current) {
+        if (!current) {
+            gs.error('DonationUtils.setTaxDeductible: current record is required');
+            return false;
+        }
+
+        var isEligible = this._isEligibleForTaxReceipt(current);
+        current.tax_credit_eligibility = isEligible;
+        
+        if (isEligible) {
+            gs.info('DonationUtils: Donation ' + current.number + ' is eligible for tax receipt');
+        } else {
+            gs.info('DonationUtils: Donation ' + current.number + ' is NOT eligible for tax receipt');
+        }
+        
+        return isEligible;
+    },
+
+    /**
+     * Determines if a donation is eligible for tax receipt based on purpose
+     * @private
+     * @param {GlideRecord} current - The current donation record
+     * @return {boolean} True if eligible for tax receipt
+     */
+    _isEligibleForTaxReceipt: function(current) {
+        if (!current || current.purpose.nil()) {
+            gs.debug('DonationUtils._isEligibleForTaxReceipt: No purpose specified, defaulting to eligible');
+            return true;
+        }
+
+        var purpose = current.purpose.toString().toLowerCase();
+        
+        if (this.TAX_EXEMPT_PURPOSES.indexOf(purpose) !== -1) {
+            gs.debug('DonationUtils._isEligibleForTaxReceipt: Purpose "' + purpose + '" is tax exempt');
+            return false;
+        }
+
+        gs.debug('DonationUtils._isEligibleForTaxReceipt: Purpose "' + purpose + '" is eligible for tax receipt');
+        return true;
+    },
+
+    /**
+     * Sets the current tax year for a donation
+     * @param {GlideRecord} current - The current donation record
+     * @return {string} The tax year that was set
+     */
+    setTaxYear: function(current) {
+        if (!current) {
+            gs.error('DonationUtils.setTaxYear: current record is required');
+            return null;
+        }
+
+        var gdt = current.sys_created_on ? new GlideDateTime(current.sys_created_on) : new GlideDateTime();
+        var taxYear = gdt.getDate().getByFormat("yyyy");
+        current.tax_year = taxYear;
+        
+        gs.debug('DonationUtils: Set tax year to ' + taxYear);
+        return taxYear;
+    },
+
+    /**
+     * Pads sequence number with leading zeros
+     * @private
+     */
+    _padSequenceNumber: function(number, length) {
+        var str = number.toString();
+        if (str.length < length) {
+            str = str.padStart(length, '0');
+        }
+        return str;
+    },
+
+    /**
+     * Validates if a donation ID format is correct
+     * @param {string} donationId - The donation ID to validate
+     * @return {boolean} True if valid format
+     */
+    isValidDonationId: function(donationId) {
+        if (!donationId) return false;
+        return /^[a-z]+\d{18}$/.test(donationId);
+    },
+
+    type: 'DonationUtils'
+});]]></script>
         <sys_class_name>sys_script_include</sys_class_name>
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2025-11-24 04:28:24</sys_created_on>
         <sys_id>1eae015b839172500c68fdc6feaad372</sys_id>
-        <sys_mod_count>5</sys_mod_count>
-        <sys_name>EkklesiumUtils</sys_name>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>DonationUtils</sys_name>
         <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
         <sys_policy/>
         <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
         <sys_update_name>sys_script_include_1eae015b839172500c68fdc6feaad372</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2025-11-24 05:56:24</sys_updated_on>
+        <sys_updated_on>2025-11-29 00:31:09</sys_updated_on>
     </sys_script_include>
 </record_update>

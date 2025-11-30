@@ -7,7 +7,7 @@
             <label>Gender</label>
             <language>en</language>
             <name>x_1644142_ekkles_0_congregant</name>
-            <plural/>
+            <plural>Genders</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2025-11-24 03:28:56</sys_created_on>

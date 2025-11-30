@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[(function executeRule(current, previous /*null when async*/) {
+    
+    // Only generate donation ID if mode is specified and donation_id is empty
+    if (!current.mode) {
+        gs.addErrorMessage('No mode specified, skipping donation ID generation');
+        return;
+    }
+    
+    try {
+        var donationUtils = new DonationUtils();
+        var donationId = donationUtils.generateDonationId(current.mode.toString(), current);
+    
+        if (donationId) {
+            current.donation_id = donationId;
+            gs.addInfoMessage('Generated donation ID: ' + donationId);
+        } else {
+            gs.addErrorMessage('Failed to generate donation ID. Please contact support.');
+            current.setAbortAction(true);
+        }
+    } catch (e) {
+        gs.addErrorMessage('Error generating donation ID: ' + e.message);
+    }
+
+})(current, previous);]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_GenerateDonationID.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-11-30 06:18:54</sys_created_on>
+        <sys_id>e29ea27bd582463faeb1c8dff26ab00c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_GenerateDonationID.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_e29ea27bd582463faeb1c8dff26ab00c</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-11-30 06:18:54</sys_updated_on>
+    </sys_module>
+</record_update>

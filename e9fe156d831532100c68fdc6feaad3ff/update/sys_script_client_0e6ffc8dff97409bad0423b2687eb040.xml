@@ -8,7 +8,7 @@
         <global>true</global>
         <isolate_script>false</isolate_script>
         <messages/>
-        <name>ClientScript1</name>
+        <name>on Load: Display message</name>
         <order/>
         <script><![CDATA[function onLoad() {
     g_form.addInfoMessage("Hello, World! Table loaded successfully!!")

@@ -27,7 +27,7 @@
         <rest_service_text/>
         <rest_variables/>
         <role_conditions/>
-        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
     
     // Only generate donation ID if mode is specified and donation_id is empty
     if (!current.mode) {
@@ -36,21 +36,16 @@
     }
     
     try {
-        // Use current date/time for formatting since sys_created_on might not be set yet
-        var gdt = new GlideDateTime();
-        var formattedDateTime = gdt.getDate().getByFormat("yyyyMMdd") + gdt.getTime().getByFormat("HHmmss");
-        
-        // Get unique sequence number for the mode of donation from EkklesiumUtils left padded with zeros to make it 4 digits
-        var ekklesiumUtils = new EkklesiumUtils();
-        var uniqueNumber = ekklesiumUtils.getDonationSequenceNumber(current.mode);
-        
-        uniqueNumber = uniqueNumber.toString().padStart(4, '0');
-        gs.addInfoMessage('Padded sequence number: ' + uniqueNumber);
-        
-        // Donation Number Format: "mode"+formattedDateTime+uniqueNumber
-        current.donation_id = current.mode + formattedDateTime + uniqueNumber;
-        
-        gs.addInfoMessage('Generated donation ID: ' + current.donation_id);
+        var donationUtils = new DonationUtils();
+        var donationId = donationUtils.generateDonationId(current.mode.toString(), current);
+    
+        if (donationId) {
+            current.donation_id = donationId;
+            gs.addInfoMessage('Generated donation ID: ' + donationId);
+        } else {
+            gs.addErrorMessage('Failed to generate donation ID. Please contact support.');
+            current.setAbortAction(true);
+        }
     } catch (e) {
         gs.addErrorMessage('Error generating donation ID: ' + e.message);
     }

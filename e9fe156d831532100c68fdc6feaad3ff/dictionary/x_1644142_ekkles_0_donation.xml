@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="8ec19d42831176100c68fdc6feaad3dc" label="Donation" max_length="40" name="x_1644142_ekkles_0_donation" type="collection">
-        <element label="Amount" max_length="40" name="amount" type="currency"/>
+        <element label="Amount" max_length="38" name="amount" type="currency"/>
         <element label="Donation number" max_length="40" name="donation_number" type="string"/>
         <element label="Congregant" max_length="32" name="congregant" reference="x_1644142_ekkles_0_congregant" type="reference"/>
+        <element attributes="encode_utf8=false" label="Donation slip" max_length="32" name="donation_slip" reference="x_1644142_ekkles_0_donation_slip" type="reference"/>
         <element choice="1" label="Purpose" max_length="40" name="purpose" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Offering" sequence="0" value="offering"/>
@@ -12,20 +13,29 @@
                 <element inactive_on_update="false" label="Pledge" sequence="1" value="pledge"/>
             </choice>
         </element>
+        <element label="tax_year" max_length="40" name="tax_year" type="string"/>
         <element choice="3" label="Mode" max_length="40" name="mode" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Cash" sequence="0" value="cash"/>
                 <element inactive_on_update="false" label="Transfer" sequence="3" value="transfer"/>
+                <element inactive_on_update="false" label="Cryptocurrency" sequence="2" value="cryptocurrency"/>
+                <element inactive_on_update="false" label="In-Kind/Non-Monetary" sequence="3" value="non_monetary"/>
+                <element inactive_on_update="false" label="Online" sequence="4" value="online"/>
                 <element inactive_on_update="false" label="POS" sequence="2" value="pos"/>
                 <element inactive_on_update="false" label="Cheque" sequence="1" value="cheque"/>
+                <element inactive_on_update="false" label="Pre-Authorized Debit" sequence="6" value="pre_auth_debit"/>
             </choice>
         </element>
+        <element label="tax_credit_eligibility" max_length="40" name="tax_credit_eligibility" type="boolean"/>
         <element label="donation_id" max_length="40" name="donation_id" type="string"/>
         <element label="Anonymous" max_length="40" name="anonymous" type="boolean"/>
         <element label="Donor" max_length="40" name="donor" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <index name="index">
             <element name="congregant"/>
+        </index>
+        <index name="index2">
+            <element name="donation_slip"/>
         </index>
     </element>
 </database>

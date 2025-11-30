@@ -20,7 +20,7 @@
         <sys_updated_by>admin</sys_updated_by>
         <sys_updated_on>2025-11-24 05:35:34</sys_updated_on>
         <type>string</type>
-        <value>0</value>
+        <value>1</value>
         <write_roles/>
     </sys_properties>
     <sys_translated_text action="delete_multiple" query="documentkey=512fdd53835572500c68fdc6feaad383"/>

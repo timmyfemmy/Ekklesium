@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="d71f52cd8321f2100c68fdc6feaad331" sys_domain="global" table="x_1644142_ekkles_0_donation" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>ab1f52cd8321f2100c68fdc6feaad338</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">d71f52cd8321f2100c68fdc6feaad331</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>e31f52cd8321f2100c68fdc6feaad33a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">d71f52cd8321f2100c68fdc6feaad331</sys_ui_form>
+            <sys_ui_section caption="Tax" display_value="Tax" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">db1f52cd8321f2100c68fdc6feaad32e</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>vs.code</sys_created_by>
+            <sys_created_on>2025-11-29 22:01:18</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>00b8674888504d80ad97a84dfe95ec3e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">d71f52cd8321f2100c68fdc6feaad331</sys_ui_form>
+            <sys_ui_section caption="Donor Information" display_value="Donor Information" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">9ce445dda9cc4120a58db4a97ca9f983</sys_ui_section>
+            <sys_updated_by>vs.code</sys_updated_by>
+            <sys_updated_on>2025-11-29 22:01:18</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_1644142_ekkles_0_donation</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>d71f52cd8321f2100c68fdc6feaad331</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1644142_ekkles_0_donation</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+            <sys_update_name>sys_ui_form_sections_d71f52cd8321f2100c68fdc6feaad331</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

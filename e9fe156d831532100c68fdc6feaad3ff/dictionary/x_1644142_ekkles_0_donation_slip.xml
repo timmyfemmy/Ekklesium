@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="8c16cfcd83a5f2100c68fdc6feaad377" label="Donation Slip" max_length="40" name="x_1644142_ekkles_0_donation_slip" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Email" max_length="40" name="email" type="string"/>
+        <element choice="1" label="Delivery status" max_length="40" name="delivery_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Picked Up" sequence="1" value="picked_up"/>
+                <element inactive_on_update="false" label="Dispatched" sequence="0" value="dispatched"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Cancellation reason" max_length="40" name="cancellation_reason" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Void" sequence="2" value="void"/>
+                <element inactive_on_update="false" label="Error" sequence="0" value="error"/>
+                <element inactive_on_update="false" label="Rejected" sequence="1" value="rejected"/>
+            </choice>
+        </element>
+        <element choice="1" label="Status" max_length="40" name="status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Cancelled" sequence="3" value="cancelled"/>
+                <element inactive_on_update="false" label="Draft" sequence="0" value="draft"/>
+                <element inactive_on_update="false" label="Reissued" sequence="4" value="reissued"/>
+                <element inactive_on_update="false" label="Issued" sequence="1" value="issued"/>
+                <element inactive_on_update="false" label="Printed" sequence="2" value="printed"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Other reasons" max_length="256" name="other_reasons" type="string"/>
+        <element attributes="encode_utf8=false" label="Congregant" max_length="32" name="congregant" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Phone number" max_length="40" name="phone_number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Printed date" max_length="40" name="printed_date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" label="Remark" max_length="512" name="remark" type="string_full_utf8"/>
+        <element attributes="edge_encryption_enabled=true" label="Slip number" max_length="40" name="slip_number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Donor name" max_length="40" name="donor_name" type="string"/>
+        <element attributes="omit_sys_original=true" label="Total donation" max_length="20" name="total_donation" type="currency"/>
+        <element attributes="edge_encryption_enabled=true" label="Issued date" max_length="40" name="issued_date" type="glide_date"/>
+        <element attributes="encode_utf8=false" label="Previous slip" max_length="32" name="previous_slip" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Tax year" max_length="40" name="tax_year" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Donor address" max_length="40" name="donor_address" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Issue date" max_length="40" name="issue_date" type="glide_date"/>
+        <index name="index">
+            <element name="congregant"/>
+        </index>
+        <index name="index2">
+            <element name="previous_slip"/>
+        </index>
+        <index name="index3">
+            <element name="status"/>
+        </index>
+        <index name="index4">
+            <element name="tax_year"/>
+        </index>
+    </element>
+</database>

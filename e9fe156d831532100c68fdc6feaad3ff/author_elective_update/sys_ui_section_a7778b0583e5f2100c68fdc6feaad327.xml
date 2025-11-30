@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_section action="DELETE" caption="New Section" section_id="a7778b0583e5f2100c68fdc6feaad327" sys_domain="global" table="x_1644142_ekkles_0_donation_slip" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>remark</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 23:40:51</sys_created_on>
+            <sys_id>37778b0583e5f2100c68fdc6feaad39f</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="New Section" display_value="New Section" name="x_1644142_ekkles_0_donation_slip" sys_domain="global" view="Default view">a7778b0583e5f2100c68fdc6feaad327</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 23:40:51</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="DELETE">
+            <caption>New Section</caption>
+            <header>false</header>
+            <name>x_1644142_ekkles_0_donation_slip</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-11-29 23:40:51</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>a7778b0583e5f2100c68fdc6feaad327</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1644142_ekkles_0_donation_slip</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+            <sys_update_name>sys_ui_section_a7778b0583e5f2100c68fdc6feaad327</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-11-29 23:40:51</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</application>
+        <file_path/>
+        <instance_id>8cd2bbefdbc646142f082a59139619ae</instance_id>
+        <instance_name>dev270354</instance_name>
+        <name>sys_ui_section_a7778b0583e5f2100c68fdc6feaad327</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update><sys_ui_section caption="New Section" section_id="a7778b0583e5f2100c68fdc6feaad327" sys_domain="global" table="x_1644142_ekkles_0_donation_slip" version="3" view=""><sys_ui_element action="INSERT_OR_UPDATE"><element>remark</element><position>0</position><sys_created_by>admin</sys_created_by><sys_created_on>2025-11-29 23:40:51</sys_created_on><sys_id>37778b0583e5f2100c68fdc6feaad39f</sys_id><sys_mod_count>0</sys_mod_count><sys_ui_formatter/><sys_ui_section caption="New Section" display_value="New Section" name="x_1644142_ekkles_0_donation_slip" sys_domain="global" view="Default view">a7778b0583e5f2100c68fdc6feaad327</sys_ui_section><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-11-29 23:40:51</sys_updated_on><sys_user/><type/></sys_ui_element><sys_ui_section action="INSERT_OR_UPDATE"><caption>New Section</caption><header>false</header><name>x_1644142_ekkles_0_donation_slip</name><roles/><sys_class_name>sys_ui_section</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2025-11-29 23:40:51</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>a7778b0583e5f2100c68fdc6feaad327</sys_id><sys_mod_count>0</sys_mod_count><sys_name>x_1644142_ekkles_0_donation_slip</sys_name><sys_overrides/><sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package><sys_policy/><sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope><sys_update_name>sys_ui_section_a7778b0583e5f2100c68fdc6feaad327</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2025-11-29 23:40:51</sys_updated_on><sys_user/><title>false</title><view display_value="Default view" name="NULL">Default view</view><view_name/></sys_ui_section></sys_ui_section></record_update>]]></payload>
+        <payload_hash>-780985301</payload_hash>
+        <record_name>Donation Slip</record_name>
+        <reverted_from/>
+        <source>e4314dd7831172500c68fdc6feaad3ef</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-11-29 23:40:51</sys_created_on>
+        <sys_id>3b778b0583e5f2100c68fdc6feaad3a2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ad1fda3060000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-11-29 23:40:51</sys_updated_on>
+        <type>Form Layout</type>
+        <update_guid>fb778b0532e5f21025594c2e19a751a1</update_guid>
+        <update_guid_history>fb778b0532e5f21025594c2e19a751a1:-780985301</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-11-29 23:41:06</sys_created_on>
+        <sys_db_object display_value="" name="sys_ui_section">sys_ui_section</sys_db_object>
+        <sys_id>1b988a5e9bc5449c9f9f47e9a2612d44</sys_id>
+        <sys_metadata>a7778b0583e5f2100c68fdc6feaad327</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>New Section</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_parent display_value="Ekkles 0 Donation Slip">8c16cfcd83a5f2100c68fdc6feaad377</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_scope_delete display_value="">090204c66692465c868da70fd433c4f1</sys_scope_delete>
+        <sys_update_name>sys_ui_section_a7778b0583e5f2100c68fdc6feaad327</sys_update_name>
+        <sys_update_version display_value="sys_ui_section_a7778b0583e5f2100c68fdc6feaad327">3b778b0583e5f2100c68fdc6feaad3a2</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-11-29 23:41:06</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
