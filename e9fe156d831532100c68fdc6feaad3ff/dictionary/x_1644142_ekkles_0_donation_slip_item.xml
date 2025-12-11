@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="b9a1bd10837132100c68fdc6feaad309" label="Donation Slip Item" max_length="40" name="x_1644142_ekkles_0_donation_slip_item" type="collection">
+        <element default="true" label="Active donation slip item" max_length="40" name="active_donation_slip_item" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Associated date" max_length="40" name="associated_date" type="glide_date"/>
+        <element attributes="encode_utf8=false,mandatory=true" label="Donation slip" max_length="32" name="donation_slip" reference="x_1644142_ekkles_0_donation_slip" type="reference"/>
+        <element attributes="mandatory=true,omit_sys_original=true,read_only=true" label="Donation amount" max_length="20" name="donation_amount" type="currency"/>
+        <element attributes="encode_utf8=false,mandatory=true" label="Donation" max_length="32" name="donation" reference="x_1644142_ekkles_0_donation" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Notes" max_length="256" name="notes" type="string"/>
+        <index name="index">
+            <element name="donation"/>
+        </index>
+        <index name="index2">
+            <element name="donation_slip"/>
+        </index>
+        <index name="index3" unique="true">
+            <element name="donation_slip"/>
+            <element name="donation"/>
+            <element name="active_donation_slip_item"/>
+        </index>
+    </element>
+</database>
