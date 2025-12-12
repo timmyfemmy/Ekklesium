@@ -15,6 +15,7 @@ DonationUtils.prototype = Object.extendsObject(EkklesiumUtils, {
         this.PROPERTY_PREFIX = 'x_1644142_ekkles_0.';
         this.SEQUENCE_SUFFIX = '.donation.sequence.number';
         this.TAX_EXEMPT_PURPOSES = ['building_fund'];
+        this.TAX_INELIGIBLE_MODES = ['non_monetary']; // In-Kind/Non-Monetary donations
     },
 
     /**
@@ -103,25 +104,37 @@ DonationUtils.prototype = Object.extendsObject(EkklesiumUtils, {
     },
 
     /**
-     * Determines if a donation is eligible for tax receipt based on purpose
+     * Determines if a donation is eligible for tax receipt based on purpose and mode
      * @private
      * @param {GlideRecord} current - The current donation record
      * @return {boolean} True if eligible for tax receipt
      */
     _isEligibleForTaxReceipt: function(current) {
-        if (!current || current.purpose.nil()) {
-            gs.debug('DonationUtils._isEligibleForTaxReceipt: No purpose specified, defaulting to eligible');
+        if (!current) {
+            gs.debug('DonationUtils._isEligibleForTaxReceipt: No current record, defaulting to eligible');
             return true;
         }
 
-        var purpose = current.purpose.toString().toLowerCase();
-        
-        if (this.TAX_EXEMPT_PURPOSES.indexOf(purpose) !== -1) {
-            gs.debug('DonationUtils._isEligibleForTaxReceipt: Purpose "' + purpose + '" is tax exempt');
-            return false;
+        // Check if mode is tax ineligible (in-kind/non-monetary)
+        if (!current.mode.nil()) {
+            var mode = current.mode.toString().toLowerCase();
+            if (this.TAX_INELIGIBLE_MODES.indexOf(mode) !== -1) {
+                gs.debug('DonationUtils._isEligibleForTaxReceipt: Mode "' + mode + '" is not eligible for tax receipt');
+                return false;
+            }
         }
 
-        gs.debug('DonationUtils._isEligibleForTaxReceipt: Purpose "' + purpose + '" is eligible for tax receipt');
+        // Check if purpose is tax exempt
+        if (!current.purpose.nil()) {
+            var purpose = current.purpose.toString().toLowerCase();
+            
+            if (this.TAX_EXEMPT_PURPOSES.indexOf(purpose) !== -1) {
+                gs.debug('DonationUtils._isEligibleForTaxReceipt: Purpose "' + purpose + '" is tax exempt');
+                return false;
+            }
+        }
+
+        gs.debug('DonationUtils._isEligibleForTaxReceipt: Donation is eligible for tax receipt');
         return true;
     },
 

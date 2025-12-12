@@ -10,6 +10,7 @@
         <element attributes="edge_encryption_enabled=true" label="Mailing address" max_length="96" name="mailing_address" type="string"/>
         <element attributes="encode_utf8=false" label="Portal user" max_length="32" name="portal_user" reference="sys_user" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="First visit date" max_length="40" name="first_visit_date" type="glide_date"/>
+        <element calculation="(function calculatedFieldValue(current) {&#13;&#10;    if (current.middle_name) {&#13;&#10;        return current.first_name + ' ' + current.middle_name + ' ' + current.last_name;&#13;&#10;    } else {&#13;&#10;        return current.first_name + ' ' + current.last_name;&#13;&#10;    }&#13;&#10;&#13;&#10;})(current);" display="true" label="Full name" max_length="96" name="full_name" type="string" virtual="true"/>
         <element attributes="edge_encryption_enabled=true" label="Preferred name" max_length="40" name="preferred_name" type="string"/>
         <element choice="3" label="Gender" max_length="40" name="gender" type="choice">
             <choice>

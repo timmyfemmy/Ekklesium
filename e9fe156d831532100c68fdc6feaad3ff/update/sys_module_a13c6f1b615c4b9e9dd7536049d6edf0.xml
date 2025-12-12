@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[/**
+ * UI Action: Initiate Slip
+ * Captures eligible donations for a draft slip and transitions status to 'initiated'
+ * 
+ * Table: x_1644142_ekkles_0_donation_slip
+ * When: User clicks "Initiate Slip" button on a draft slip
+ * Role: x_1644142_ekkles_0.secretariat
+ */
+
+(function() {
+    
+    try {
+        // Call the script include to initiate the slip
+        var slipUtils = new DonationSlipUtils();
+        var result = slipUtils.initiateSlip(current.sys_id.toString());
+        
+        if (result.success) {
+            if (result.itemsCreated > 0) {
+                gs.addInfoMessage('Successfully initiated slip with ' + result.itemsCreated + ' donation(s)');
+            } else {
+                gs.addInfoMessage('Slip initiated successfully, but no eligible donations found for ' + 
+                                  current.congregant.getDisplayValue() + ' in tax year ' + current.tax_year);
+            }
+            
+            // Reload the form to show updated status and related items
+            action.setRedirectURL(current);
+        } else {
+            // Display all errors from script include
+            if (result.errors && result.errors.length > 0) {
+                for (var i = 0; i < result.errors.length; i++) {
+                    gs.addErrorMessage(result.errors[i]);
+                }
+            } else {
+                gs.addErrorMessage('Failed to initiate slip. Please check the system logs for details.');
+            }
+        }
+        
+    } catch (e) {
+        gs.addErrorMessage('An error occurred while initiating the slip: ' + e.message);
+        gs.error('UIA_InitiateSlip: Exception caught - ' + e.message + '\nStack: ' + e.stack);
+    }
+    
+})();]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/UIA_InitiateSlip.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 08:35:14</sys_created_on>
+        <sys_id>a13c6f1b615c4b9e9dd7536049d6edf0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/UIA_InitiateSlip.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_a13c6f1b615c4b9e9dd7536049d6edf0</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 08:35:14</sys_updated_on>
+    </sys_module>
+</record_update>

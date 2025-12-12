@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[/**
+ * Business Rule: Calculate Net Amount
+ * Table: x_1644142_ekkles_0_donation
+ * When: before
+ * Action: insert, update
+ * 
+ * Calculates net_amount = amount - refund_amount
+ */
+
+(function executeRule(current, previous) {
+    
+    var originalAmount = parseFloat(current.amount) || 0;
+    var refundAmount = parseFloat(current.refund_amount) || 0;
+    
+    current.net_amount = originalAmount - refundAmount;
+    
+})(current, previous);]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_CalculateNetAmount.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_id>617982298f284952b303fb1895280710</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_CalculateNetAmount.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_617982298f284952b303fb1895280710</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+    </sys_module>
+</record_update>

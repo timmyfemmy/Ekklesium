@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[/**
+ * Business Rule: Update Donation Status on Slip Item Insert
+ * When: after
+ * Insert: true
+ * Updates donation.donation_item_status to "captured" when slip item created
+ */
+
+(function executeRule(current, previous) {
+    
+    // Only process if active slip item
+    if (!current.active_donation_slip_item) {
+        gs.debug('UpdateDonationStatus: Slip item not active, skipping');
+        return;
+    }
+    
+    if (current.donation.nil()) {
+        gs.warn('UpdateDonationStatus: No donation linked to slip item');
+        return;
+    }
+    
+    try {
+        var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+        if (donation.get(current.donation)) {
+            donation.donation_item_status = 'captured';
+            donation.setWorkflow(false); // Prevent recursion
+            donation.update();
+            
+            gs.info('UpdateDonationStatus: Set donation ' + donation.number + ' to captured');
+        }
+    } catch (e) {
+        gs.error('UpdateDonationStatus: ' + e.message);
+    }
+    
+})(current, previous);]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_UpdateDonationStatusOnSlipItemInsert.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_id>b0b0b4a33b824869b84080a992c09626</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_UpdateDonationStatusOnSlipItemInsert.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_b0b0b4a33b824869b84080a992c09626</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+    </sys_module>
+</record_update>

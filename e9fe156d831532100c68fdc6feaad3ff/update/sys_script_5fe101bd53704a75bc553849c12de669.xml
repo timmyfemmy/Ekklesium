@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>false</action_insert>
+        <action_query>false</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_1644142_ekkles_0_donation_slip_item</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Revert Donation Status on Slip Item Deac</name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[/**
+ * Business Rule: Revert Donation Status on Slip Item Deactivate
+ * Table: x_1644142_ekkles_0_donation_slip_item
+ * When: after
+ * Action: update
+ * 
+ * Reverts donation status when slip item deactivated:
+ * - fully_refunded → received
+ * - partially_refunded → received (if no other active items)
+ * - captured → received (if no other active items)
+ */
+
+(function executeRule(current, previous) {
+    
+    // Only process when slip item becomes inactive
+    if (current.active_donation_slip_item || !previous.active_donation_slip_item) {
+        return;
+    }
+    
+    if (current.donation.nil()) {
+        return;
+    }
+    
+    try {
+        // Check if donation has any OTHER active slip items
+        var otherActive = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+        otherActive.addQuery('donation', current.donation);
+        otherActive.addQuery('active_donation_slip_item', true);
+        otherActive.addQuery('sys_id', '!=', current.sys_id);
+        otherActive.query();
+        
+        if (!otherActive.hasNext()) {
+            // No other active items, revert donation status
+            var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+            if (donation.get(current.donation)) {
+                
+                var currentStatus = donation.donation_item_status.toString();
+                var netAmount = parseFloat(donation.net_amount) || 0;
+                
+                // Determine target status based on refund state
+                var targetStatus = 'received';
+                
+                // If fully refunded, keep as fully_refunded
+                if (netAmount <= 0) {
+                    targetStatus = 'fully_refunded';
+                }
+                // If partially refunded, keep as partially_refunded  
+                else if (parseFloat(donation.refund_amount) > 0) {
+                    targetStatus = 'partially_refunded';
+                }
+                // Otherwise revert to received
+                else {
+                    targetStatus = 'received';
+                }
+                
+                donation.donation_item_status = targetStatus;
+                donation.setWorkflow(false);
+                donation.update();
+                
+                gs.info('RevertDonationStatus: Reverted donation ' + donation.number + 
+                       ' from ' + currentStatus + ' to ' + targetStatus);
+            }
+        } else {
+            gs.debug('RevertDonationStatus: Donation ' + current.donation.getDisplayValue() + 
+                    ' has other active slip items, not reverting status');
+        }
+    } catch (e) {
+        gs.error('RevertDonationStatus: ' + e.message);
+    }
+    
+})(current, previous);]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>5fe101bd53704a75bc553849c12de669</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Revert Donation Status on Slip Item Deac</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_script_5fe101bd53704a75bc553849c12de669</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=5fe101bd53704a75bc553849c12de669"/>
+</record_update>

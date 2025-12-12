@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_documentation element="age_group" label="Age group" language="en" table="x_1644142_ekkles_0_member">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>age_group</element>
+            <help/>
+            <hint/>
+            <label>Age group</label>
+            <language>en</language>
+            <name>x_1644142_ekkles_0_member</name>
+            <plural>Age groups</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>vs.code</sys_created_by>
+            <sys_created_on>2025-12-06 01:03:07</sys_created_on>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Age group</sys_name>
+            <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+            <sys_update_name>sys_documentation_x_1644142_ekkles_0_member_age_group_en</sys_update_name>
+            <sys_updated_by>vs.code</sys_updated_by>
+            <sys_updated_on>2025-12-06 01:03:07</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

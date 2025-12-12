@@ -8,12 +8,12 @@
             <min_value>false</min_value>
             <position>0</position>
             <sum>false</sum>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-30 02:44:59</sys_created_on>
+            <sys_created_by>vs.code</sys_created_by>
+            <sys_created_on>2025-12-12 22:51:01</sys_created_on>
             <sys_id>c9a1f7c9836df2100c68fdc6feaad3f8</sys_id>
             <sys_mod_count>0</sys_mod_count>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-30 02:44:59</sys_updated_on>
+            <sys_updated_by>vs.code</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:51:01</sys_updated_on>
         </sys_ui_list_element>
         <sys_ui_list action="INSERT_OR_UPDATE">
             <average_value>false</average_value>
@@ -26,8 +26,8 @@
             <relationship/>
             <sum>false</sum>
             <sys_class_name>sys_ui_list</sys_class_name>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-30 02:44:59</sys_created_on>
+            <sys_created_by>vs.code</sys_created_by>
+            <sys_created_on>2025-12-12 22:51:01</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>01a1f7c9836df2100c68fdc6feaad3f7</sys_id>
@@ -37,8 +37,8 @@
             <sys_policy/>
             <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
             <sys_update_name>sys_ui_list_x_1644142_ekkles_0_donation_slip_sys_ref_list</sys_update_name>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-30 02:44:59</sys_updated_on>
+            <sys_updated_by>vs.code</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:51:01</sys_updated_on>
             <sys_user/>
             <view display_value="Reference List" name="sys_ref_list">3f7490635c2312104f3496f8659cf63f</view>
             <view_name/>

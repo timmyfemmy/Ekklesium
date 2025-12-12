@@ -7,7 +7,7 @@
             <label>Cancellation reason</label>
             <language>en</language>
             <name>x_1644142_ekkles_0_donation_slip</name>
-            <plural/>
+            <plural>Cancellation reasons</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>vs.code</sys_created_by>
             <sys_created_on>2025-11-29 23:34:36</sys_created_on>

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update>
-    <sys_documentation element="tax_year" label="Tax year" language="en" table="x_1644142_ekkles_0_donation">
+    <sys_documentation element="tax_year" label="tax_year" language="en" table="x_1644142_ekkles_0_donation">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>tax_year</element>
             <help/>
             <hint/>
-            <label>Tax year</label>
+            <label>tax_year</label>
             <language>en</language>
             <name>x_1644142_ekkles_0_donation</name>
-            <plural/>
+            <plural>tax_years</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>vs.code</sys_created_by>
             <sys_created_on>2025-11-28 23:52:38</sys_created_on>

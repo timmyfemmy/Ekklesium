@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="3365e96d835532100c68fdc6feaad311" extends="x_1644142_ekkles_0_congregant" label="Member" max_length="40" name="x_1644142_ekkles_0_member" type="collection">
+        <element choice="1" label="Membership status" max_length="40" name="membership_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Inactive" sequence="1" value="inactive"/>
+                <element inactive_on_update="false" label="Relocated" sequence="2" value="relocated"/>
+                <element inactive_on_update="false" label="Deceased" sequence="4" value="deceased"/>
+                <element inactive_on_update="false" label="Active" sequence="0" value="active"/>
+                <element inactive_on_update="false" label="Transferred" sequence="3" value="transferred"/>
+            </choice>
+        </element>
+        <element label="Holy spirit baptised" max_length="40" name="holy_spirit_baptised" type="boolean"/>
+        <element choice="1" label="Marital status" max_length="40" name="marital_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Divorced" sequence="2" value="divorced"/>
+                <element inactive_on_update="false" label="Widowed" sequence="3" value="widowed"/>
+                <element inactive_on_update="false" label="Separated" sequence="2" value="separated"/>
+                <element inactive_on_update="false" label="Single" sequence="0" value="single"/>
+                <element inactive_on_update="false" label="Married" sequence="1" value="married"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Membership start date" max_length="40" name="membership_start_date" type="glide_date"/>
+        <element attributes="encode_utf8=false" label="Family unit" max_length="32" name="family_unit" reference="x_1644142_ekkles_0_family" type="reference"/>
+        <element attributes="edge_encryption_enabled=true" label="Date married" max_length="40" name="date_married" type="glide_date"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Birth date" max_length="40" name="birth_date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" label="Occupation" max_length="40" name="occupation" type="string"/>
+        <element label="Water baptised" max_length="40" name="water_baptised" type="boolean"/>
+        <element attributes="edge_encryption_enabled=true" label="Membership ID" max_length="40" name="membership_id" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Baptism date" max_length="40" name="baptism_date" type="glide_date"/>
+        <element attributes="edge_encryption_enabled=true" label="Baptism church" max_length="40" name="baptism_church" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="Holyspirit baptism date" max_length="40" name="holyspirit_baptism_date" type="glide_date"/>
+        <element choice="3" label="Age group" max_length="40" name="age_group" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Young Adult (18-25)" sequence="2" value="young_adult"/>
+                <element inactive_on_update="false" label="Adult (26-64)" sequence="3" value="adult"/>
+                <element inactive_on_update="false" label="Child (0-12)" sequence="0" value="child"/>
+                <element inactive_on_update="false" label="Senior (65+)" sequence="4" value="senior"/>
+                <element inactive_on_update="false" label="Youth (13-17)" sequence="1" value="youth"/>
+            </choice>
+        </element>
+        <element attributes="edge_encryption_enabled=true" label="Salvation date" max_length="40" name="salvation_date" type="glide_date"/>
+        <element label="Is head of household" max_length="40" name="is_head_of_household" type="boolean"/>
+        <index name="index">
+            <element name="family_unit"/>
+        </index>
     </element>
 </database>

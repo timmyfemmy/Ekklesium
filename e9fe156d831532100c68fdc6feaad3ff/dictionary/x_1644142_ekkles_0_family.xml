@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="216e8e0f836572100c68fdc6feaad37f" label="Family" max_length="40" name="x_1644142_ekkles_0_family" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Family name" max_length="40" name="family_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
+    </element>
+</database>

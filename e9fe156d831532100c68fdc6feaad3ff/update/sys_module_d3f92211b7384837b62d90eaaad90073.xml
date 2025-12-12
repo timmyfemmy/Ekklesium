@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[/**
+ * Business Rule: Revert Donation Status on Slip Item Deactivate
+ * Table: x_1644142_ekkles_0_donation_slip_item
+ * When: after
+ * Action: update
+ * 
+ * Reverts donation status when slip item deactivated:
+ * - fully_refunded → received
+ * - partially_refunded → received (if no other active items)
+ * - captured → received (if no other active items)
+ */
+
+(function executeRule(current, previous) {
+    
+    // Only process when slip item becomes inactive
+    if (current.active_donation_slip_item || !previous.active_donation_slip_item) {
+        return;
+    }
+    
+    if (current.donation.nil()) {
+        return;
+    }
+    
+    try {
+        // Check if donation has any OTHER active slip items
+        var otherActive = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+        otherActive.addQuery('donation', current.donation);
+        otherActive.addQuery('active_donation_slip_item', true);
+        otherActive.addQuery('sys_id', '!=', current.sys_id);
+        otherActive.query();
+        
+        if (!otherActive.hasNext()) {
+            // No other active items, revert donation status
+            var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+            if (donation.get(current.donation)) {
+                
+                var currentStatus = donation.donation_item_status.toString();
+                var netAmount = parseFloat(donation.net_amount) || 0;
+                
+                // Determine target status based on refund state
+                var targetStatus = 'received';
+                
+                // If fully refunded, keep as fully_refunded
+                if (netAmount <= 0) {
+                    targetStatus = 'fully_refunded';
+                }
+                // If partially refunded, keep as partially_refunded  
+                else if (parseFloat(donation.refund_amount) > 0) {
+                    targetStatus = 'partially_refunded';
+                }
+                // Otherwise revert to received
+                else {
+                    targetStatus = 'received';
+                }
+                
+                donation.donation_item_status = targetStatus;
+                donation.setWorkflow(false);
+                donation.update();
+                
+                gs.info('RevertDonationStatus: Reverted donation ' + donation.number + 
+                       ' from ' + currentStatus + ' to ' + targetStatus);
+            }
+        } else {
+            gs.debug('RevertDonationStatus: Donation ' + current.donation.getDisplayValue() + 
+                    ' has other active slip items, not reverting status');
+        }
+    } catch (e) {
+        gs.error('RevertDonationStatus: ' + e.message);
+    }
+    
+})(current, previous);]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_RevertDonationStatusonSlipItemDeactivate.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_id>d3f92211b7384837b62d90eaaad90073</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_RevertDonationStatusonSlipItemDeactivate.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_d3f92211b7384837b62d90eaaad90073</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+    </sys_module>
+</record_update>

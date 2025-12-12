@@ -7,7 +7,7 @@
             <label>Donation number</label>
             <language>en</language>
             <name>x_1644142_ekkles_0_donation</name>
-            <plural/>
+            <plural>Donation numbers</plural>
             <sys_class_name>sys_documentation</sys_class_name>
             <sys_created_by>admin</sys_created_by>
             <sys_created_on>2025-11-24 03:49:15</sys_created_on>

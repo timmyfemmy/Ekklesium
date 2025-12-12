@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[/**
+ * Business Rule: Handle Donation Refund
+ * Table: x_1644142_ekkles_0_donation
+ * When: after
+ * Action: update
+ * 
+ * Handles full and partial refunds based on donation status:
+ * - received: Straight-through refund (no slip logic)
+ * - captured: Adjust slip items (draft/initiated slips only)
+ * - completed: Block refund (must cancel slip first)
+ */
+
+(function executeRule(current, previous) {
+    
+    // Only process if refund_amount changed
+    if (!current.refund_amount.changes()) {
+        return;
+    }
+    
+    var currentStatus = current.donation_item_status.toString();
+    var originalAmount = parseFloat(current.amount) || 0;
+    var refundAmount = parseFloat(current.refund_amount) || 0;
+    var previousRefundAmount = parseFloat(previous.refund_amount) || 0;
+    var netAmount = originalAmount - refundAmount;
+    
+    // Validate refund amount
+    if (refundAmount < 0) {
+        gs.addErrorMessage('Refund amount cannot be negative');
+        current.setAbortAction(true);
+        return;
+    }
+    
+    if (refundAmount > originalAmount) {
+        gs.addErrorMessage('Refund amount cannot exceed original donation amount');
+        current.setAbortAction(true);
+        return;
+    }
+    
+    // Validate refund is not decreasing
+    if (refundAmount < previousRefundAmount) {
+        gs.addErrorMessage('Refund amount cannot be decreased. Original refund: $' + previousRefundAmount);
+        current.setAbortAction(true);
+        return;
+    }
+    
+    try {
+        
+        // CASE 1: Donation in RECEIVED status - Straight-through refund
+        if (currentStatus == 'received') {
+            _handleReceivedRefund(current, netAmount);
+            return;
+        }
+        
+        // CASE 2: Donation in COMPLETED status - Block refund
+        if (currentStatus == 'completed') {
+            gs.addErrorMessage('Cannot refund completed donations. Cancel the slip first, then process refund.');
+            current.setAbortAction(true);
+            return;
+        }
+        
+        // CASE 3: Donation in CAPTURED status - Adjust slip items
+        if (currentStatus == 'captured') {
+            _handleCapturedRefund(current, netAmount, refundAmount);
+            return;
+        }
+        
+        // CASE 4: Donation already refunded - Update refund amount only
+        if (currentStatus == 'fully_refunded' || currentStatus == 'partially_refunded') {
+            _handleExistingRefund(current, netAmount);
+            return;
+        }
+        
+    } catch (e) {
+        gs.error('HandleDonationRefund: Error processing refund for donation ' + current.number + ': ' + e.message);
+        gs.addErrorMessage('Error processing refund: ' + e.message);
+        current.setAbortAction(true);
+    }
+    
+    
+    // ========== HELPER FUNCTIONS ==========
+    
+    /**
+     * Handles refund for donations in RECEIVED status
+     * No slip items exist, just update status
+     */
+    function _handleReceivedRefund(donation, netAmount) {
+        if (netAmount <= 0) {
+            donation.donation_item_status = 'fully_refunded';
+            gs.info('HandleDonationRefund: Donation ' + donation.number + ' fully refunded (received status)');
+        } else {
+            donation.donation_item_status = 'partially_refunded';
+            gs.info('HandleDonationRefund: Donation ' + donation.number + ' partially refunded (received status)');
+        }
+    }
+    
+    /**
+     * Handles refund for donations in CAPTURED status
+     * Must adjust slip items
+     */
+    function _handleCapturedRefund(donation, netAmount, refundAmount) {
+        // Find active slip item
+        var slipItem = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+        slipItem.addQuery('donation', donation.sys_id);
+        slipItem.addQuery('active_donation_slip_item', true);
+        slipItem.query();
+        
+        if (!slipItem.hasNext()) {
+            gs.warn('HandleDonationRefund: No active slip item found for captured donation ' + donation.number);
+            // Treat as received refund
+            _handleReceivedRefund(donation, netAmount);
+            return;
+        }
+        
+        slipItem.next();
+        var slipSysId = slipItem.donation_slip.toString();
+        var slipStatus = slipItem.donation_slip.status.toString();
+        var slipNumber = slipItem.donation_slip.number.toString();
+        
+        // Validate slip is in draft or initiated status
+        if (slipStatus != 'draft' && slipStatus != 'initiated') {
+            gs.addErrorMessage('Cannot refund donation ' + donation.number + 
+                             '. Slip ' + slipNumber + ' is ' + slipStatus + 
+                             '. Cancel the slip first.');
+            donation.setAbortAction(true);
+            return;
+        }
+        
+        // FULL REFUND: Deactivate slip item, set donation to fully_refunded
+        if (netAmount <= 0) {
+            _deactivateSlipItem(slipItem, 'Full refund processed: $' + refundAmount);
+            
+            // Set donation to fully_refunded (will trigger revert to received via another BR)
+            donation.donation_item_status = 'fully_refunded';
+            
+            gs.info('HandleDonationRefund: Full refund processed for donation ' + donation.number + 
+                   '. Slip item deactivated on slip ' + slipNumber);
+        }
+        // PARTIAL REFUND: Create new slip item with reduced amount, deactivate old one
+        else {
+            var oldAmount = parseFloat(slipItem.donation_amount) || 0;
+            
+            _deactivateSlipItem(slipItem, 
+                'Partial refund processed: Original $' + oldAmount + 
+                ', Refund $' + refundAmount + 
+                ', New amount $' + netAmount);
+            
+            // Create new slip item with net amount
+            _createAdjustedSlipItem(slipSysId, donation.sys_id, netAmount, refundAmount);
+            
+            // Set donation to partially_refunded
+            donation.donation_item_status = 'partially_refunded';
+            
+            gs.info('HandleDonationRefund: Partial refund processed for donation ' + donation.number + 
+                   '. New slip item created with net amount $' + netAmount);
+        }
+    }
+    
+    /**
+     * Handles refund updates for already refunded donations
+     */
+    function _handleExistingRefund(donation, netAmount) {
+        if (netAmount <= 0) {
+            donation.donation_item_status = 'fully_refunded';
+        } else {
+            donation.donation_item_status = 'partially_refunded';
+        }
+        
+        gs.info('HandleDonationRefund: Updated refund amount for donation ' + donation.number);
+    }
+    
+    /**
+     * Deactivates a slip item
+     */
+    function _deactivateSlipItem(slipItem, reason) {
+        slipItem.active_donation_slip_item = false;
+        slipItem.deactivated_date = new GlideDateTime();
+        slipItem.deactivated_by = gs.getUserID();
+        slipItem.deactivation_reason = reason;
+        slipItem.setWorkflow(false);
+        slipItem.update();
+    }
+    
+    /**
+     * Creates new slip item with adjusted amount
+     */
+    function _createAdjustedSlipItem(slipSysId, donationSysId, netAmount, refundAmount) {
+        var newItem = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+        newItem.initialize();
+        newItem.donation_slip = slipSysId;
+        newItem.donation = donationSysId;
+        newItem.donation_amount = netAmount;
+        newItem.active_donation_slip_item = true;
+        newItem.associated_date = new GlideDateTime();
+        newItem.notes = 'Adjusted for partial refund of $' + refundAmount;
+        newItem.setWorkflow(false); // Prevent triggering other BRs
+        newItem.insert();
+    }
+    
+})(current, previous);]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_HandleDonationRefund.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_id>0dfe175d8dae416caa9f29ca35f58d6e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/BR_HandleDonationRefund.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_0dfe175d8dae416caa9f29ca35f58d6e</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+    </sys_module>
+</record_update>

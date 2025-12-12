@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?><database>
     <element db_object_id="8ec19d42831176100c68fdc6feaad3dc" label="Donation" max_length="40" name="x_1644142_ekkles_0_donation" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="Donor address" max_length="40" name="donor_address" type="string"/>
+        <element choice="3" label="Donation item status" max_length="40" name="donation_item_status" type="choice">
+            <choice>
+                <element inactive_on_update="false" label="Refunded" sequence="1" value="refunded"/>
+                <element inactive_on_update="false" label="Captured" sequence="2" value="captured"/>
+                <element inactive_on_update="false" label="Partially Refunded" sequence="4" value="partially_refunded"/>
+                <element inactive_on_update="false" label="Completed" sequence="3" value="completed"/>
+                <element inactive_on_update="false" label="Received" sequence="0" value="received"/>
+                <element inactive_on_update="false" label="Fully Refunded" sequence="3" value="fully_refunded"/>
+            </choice>
+        </element>
         <element label="Amount" max_length="38" name="amount" type="currency"/>
         <element label="Donation number" max_length="40" name="donation_number" type="string"/>
         <element label="Congregant" max_length="32" name="congregant" reference="x_1644142_ekkles_0_congregant" type="reference"/>
+        <element attributes="omit_sys_original=true" default="0" label="Net amount" max_length="20" name="net_amount" read_only="true" type="currency"/>
         <element attributes="encode_utf8=false" label="Donation slip" max_length="32" name="donation_slip" reference="x_1644142_ekkles_0_donation_slip" type="reference"/>
         <element choice="1" label="Purpose" max_length="40" name="purpose" type="choice">
             <choice>
@@ -26,9 +38,17 @@
                 <element inactive_on_update="false" label="Pre-Authorized Debit" sequence="6" value="pre_auth_debit"/>
             </choice>
         </element>
+        <element attributes="edge_encryption_enabled=true" label="Donor name" max_length="40" name="donor_name" type="string"/>
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Refund Status" max_length="40" name="refund_status" type="string">
+            <choice>
+                <element inactive_on_update="false" label="Full Refund" sequence="0" value="full_refund"/>
+                <element inactive_on_update="false" label="Partial Refund" sequence="1" value="partial_refund"/>
+            </choice>
+        </element>
         <element label="tax_credit_eligibility" max_length="40" name="tax_credit_eligibility" type="boolean"/>
         <element label="donation_id" max_length="40" name="donation_id" type="string"/>
         <element label="Anonymous" max_length="40" name="anonymous" type="boolean"/>
+        <element attributes="omit_sys_original=true" default="0" label="Refund amount" max_length="20" name="refund_amount" type="currency"/>
         <element label="Donor" max_length="40" name="donor" type="string"/>
         <element attributes="edge_encryption_enabled=true" default="javascript:global.getNextObjNumberPadded();" label="Number" max_length="40" name="number" type="string"/>
         <index name="index">

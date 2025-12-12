@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_form_sections form_id="f094b9d183b532100c68fdc6feaad35e" sys_domain="global" table="x_1644142_ekkles_0_donation" version="3">
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:44</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>b094b9d183b532100c68fdc6feaad364</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">f094b9d183b532100c68fdc6feaad35e</sys_ui_form>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:44</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:44</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f494b9d183b532100c68fdc6feaad365</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">f094b9d183b532100c68fdc6feaad35e</sys_ui_form>
+            <sys_ui_section caption="Refund" display_value="Refund" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">7894b9d183b532100c68fdc6feaad358</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:44</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:44</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f094b9d183b532100c68fdc6feaad36c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">f094b9d183b532100c68fdc6feaad35e</sys_ui_form>
+            <sys_ui_section caption="Donor" display_value="Donor" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">3c94b9d183b532100c68fdc6feaad35a</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:44</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f094b9d183b532100c68fdc6feaad373</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_1644142_ekkles_0_donation" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">f094b9d183b532100c68fdc6feaad35e</sys_ui_form>
+            <sys_ui_section caption="Tax" display_value="Tax" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">b494b9d183b532100c68fdc6feaad35c</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form action="INSERT_OR_UPDATE">
+            <name>x_1644142_ekkles_0_donation</name>
+            <roles/>
+            <sys_class_name>sys_ui_form</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:44</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>f094b9d183b532100c68fdc6feaad35e</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>x_1644142_ekkles_0_donation</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+            <sys_update_name>sys_ui_form_sections_f094b9d183b532100c68fdc6feaad35e</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:44</sys_updated_on>
+            <sys_user/>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_form>
+    </sys_ui_form_sections>
+</record_update>

@@ -19,12 +19,13 @@
                 <element inactive_on_update="false" label="Cancelled" sequence="3" value="cancelled"/>
                 <element inactive_on_update="false" label="Draft" sequence="0" value="draft"/>
                 <element inactive_on_update="false" label="Reissued" sequence="4" value="reissued"/>
+                <element inactive_on_update="false" label="Initiated" sequence="0" value="initiated"/>
                 <element inactive_on_update="false" label="Issued" sequence="1" value="issued"/>
                 <element inactive_on_update="false" label="Printed" sequence="2" value="printed"/>
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true" label="Other reasons" max_length="256" name="other_reasons" type="string"/>
-        <element attributes="encode_utf8=false" label="Congregant" max_length="32" name="congregant" type="reference"/>
+        <element attributes="encode_utf8=false" label="Congregant" max_length="32" name="congregant" reference="x_1644142_ekkles_0_congregant" type="reference"/>
         <element attributes="edge_encryption_enabled=true" label="Phone number" max_length="40" name="phone_number" type="string"/>
         <element attributes="edge_encryption_enabled=true" label="Printed date" max_length="40" name="printed_date" type="glide_date"/>
         <element attributes="edge_encryption_enabled=true" label="Remark" max_length="512" name="remark" type="string_full_utf8"/>

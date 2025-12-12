@@ -4,13 +4,13 @@
             <element>donation_id</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>ef1f52cd8321f2100c68fdc6feaad35a</sys_id>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>7094b9d183b532100c68fdc6feaad388</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
@@ -18,153 +18,83 @@
             <element>mode</element>
             <position>1</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>ab1f52cd8321f2100c68fdc6feaad35b</sys_id>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>3c94b9d183b532100c68fdc6feaad388</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.split</element>
-            <position>2</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>671f52cd8321f2100c68fdc6feaad35c</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type>.split</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>donation_number</element>
-            <position>3</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>231f52cd8321f2100c68fdc6feaad35d</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>purpose</element>
-            <position>4</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>eb1f52cd8321f2100c68fdc6feaad35d</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.end_split</element>
-            <position>5</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>a71f52cd8321f2100c68fdc6feaad35e</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type>.end_split</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.begin_split</element>
-            <position>6</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>631f52cd8321f2100c68fdc6feaad35f</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type>.begin_split</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>anonymous</element>
-            <position>7</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>2f1f52cd8321f2100c68fdc6feaad35f</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>congregant</element>
-            <position>8</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>e71f52cd8321f2100c68fdc6feaad360</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type/>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>.split</element>
-            <position>9</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>a31f52cd8321f2100c68fdc6feaad361</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
-            <sys_user/>
-            <type>.split</type>
-        </sys_ui_element>
-        <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>donor</element>
-            <position>10</position>
-            <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>6f1f52cd8321f2100c68fdc6feaad361</sys_id>
-            <sys_mod_count>0</sys_mod_count>
-            <sys_ui_formatter/>
-            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
-            <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>amount</element>
-            <position>11</position>
+            <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2025-11-29 20:44:26</sys_created_on>
-            <sys_id>2b1f52cd8321f2100c68fdc6feaad362</sys_id>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>f494b9d183b532100c68fdc6feaad389</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2025-11-29 20:44:26</sys_updated_on>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>donation_item_status</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>b094b9d183b532100c68fdc6feaad38a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>7c94b9d183b532100c68fdc6feaad38a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>donation_number</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>3894b9d183b532100c68fdc6feaad38b</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>purpose</element>
+            <position>6</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2025-12-12 22:32:45</sys_created_on>
+            <sys_id>f094b9d183b532100c68fdc6feaad38c</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="NULL" display_value="" name="x_1644142_ekkles_0_donation" sys_domain="global" view="Default view">e2c1dd42831176100c68fdc6feaad369</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2025-12-12 22:32:45</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>

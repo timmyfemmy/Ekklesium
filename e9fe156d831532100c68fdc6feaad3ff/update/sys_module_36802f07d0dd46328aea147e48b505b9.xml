@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_module">
+    <sys_module action="INSERT_OR_UPDATE">
+        <content><![CDATA[var DonationSlipUtils = Class.create();
+DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
+    
+    /**
+     * Initiates a draft slip by capturing eligible donations
+     * @param {string} slipSysId - The slip sys_id to initiate
+     * @param {string} [congregantSysId] - Optional: The congregant sys_id (defaults to slip.congregant)
+     * @param {string} [taxYear] - Optional: The tax year (defaults to slip.tax_year)
+     * @return {object} Result object with success status and details
+     * 
+     * @example
+     * // UI Action - reads from slip record
+     * var result = slipUtils.initiateSlip(current.sys_id.toString());
+     * 
+     * @example
+     * // Override tax year
+     * var result = slipUtils.initiateSlip(slipSysId, null, '2023');
+     * 
+     * @example
+     * // Explicit parameters (API usage)
+     * var result = slipUtils.initiateSlip(slipSysId, congregantSysId, '2024');
+     */
+    initiateSlip: function(slipSysId, congregantSysId, taxYear) {
+        var result = {
+            success: false,
+            message: '',
+            itemsCreated: 0,
+            errors: []
+        };
+        
+        if (!slipSysId) {
+            result.errors.push('Slip sys_id is required');
+            return result;
+        }
+        
+        var slip = new GlideRecord('x_1644142_ekkles_0_donation_slip');
+        if (!slip.get(slipSysId)) {
+            result.errors.push('Slip not found: ' + slipSysId);
+            return result;
+        }
+        
+        // Validate slip is in draft status
+        if (slip.status != 'draft') {
+            result.errors.push('Slip must be in draft status. Current status: ' + slip.status);
+            return result;
+        }
+        
+        // Get congregant from parameter or slip record
+        var congregantId = congregantSysId || slip.congregant.toString();
+        if (!congregantId) {
+            result.errors.push('Congregant is required to initiate slip');
+            return result;
+        }
+        
+        // Get tax year from parameter or slip record
+        var slipTaxYear = taxYear || slip.tax_year.toString();
+        if (!slipTaxYear) {
+            result.errors.push('Tax year is required to initiate slip');
+            return result;
+        }
+        
+        try {
+            // Find eligible donations matching the congregant and tax year
+            var donations = this._findEligibleDonations(congregantId, slipTaxYear);
+            
+            if (donations.length === 0) {
+                // Update status to initiated even with no donations
+                slip.status = 'initiated';
+                slip.setWorkflow(false);
+                slip.update();
+                
+                result.message = 'No eligible donations found for congregant in tax year ' + slipTaxYear;
+                result.success = true; // Not an error, just no data
+                return result;
+            }
+            
+            // Create slip items for each donation
+            var itemsCreated = this._createSlipItems(slipSysId, donations);
+            
+            // Update slip status to initiated
+            slip.status = 'initiated';
+            slip.setWorkflow(false);
+            slip.update();
+            
+            result.success = true;
+            result.itemsCreated = itemsCreated;
+            result.message = 'Successfully initiated slip with ' + itemsCreated + ' donation(s)';
+            
+            gs.info('DonationSlipUtils.initiateSlip: ' + result.message + 
+                    ' [Congregant: ' + congregantId + ', Tax Year: ' + slipTaxYear + ']');
+            
+        } catch (e) {
+            result.errors.push('Error initiating slip: ' + e.message);
+            gs.error('DonationSlipUtils.initiateSlip: ' + e.message);
+        }
+        
+        return result;
+    },
+    
+    /**
+     * Finds eligible donations for a congregant in a tax year
+     * @private
+     * @param {string} congregantSysId - The congregant sys_id
+     * @param {string} taxYear - The tax year (e.g., '2024')
+     * @return {Array} Array of donation objects
+     */
+    _findEligibleDonations: function(congregantSysId, taxYear) {
+        var donations = [];
+        
+        if (!congregantSysId || !taxYear) {
+            gs.warn('DonationSlipUtils._findEligibleDonations: Missing required parameters');
+            return donations;
+        }
+        
+        var gr = new GlideRecord('x_1644142_ekkles_0_donation');
+        gr.addQuery('congregant', congregantSysId);
+        gr.addQuery('tax_year', taxYear);
+        gr.addQuery('tax_credit_eligibility', true);
+        gr.addQuery('donation_item_status', 'IN', 'received,partially_refunded'); // Include partially refunded
+        gr.orderBy('sys_created_on');
+        gr.query();
+        
+        while (gr.next()) {
+            var netAmount = parseFloat(gr.net_amount) || 0;
+            
+            // Only include donations with positive net amount
+            if (netAmount > 0) {
+                donations.push({
+                    sys_id: gr.sys_id.toString(),
+                    amount: netAmount, // Use calculated net amount
+                    donation_number: gr.number.toString()
+                });
+            }
+        }
+        
+        gs.debug('DonationSlipUtils._findEligibleDonations: Found ' + donations.length + 
+                 ' donations for congregant ' + congregantSysId + ' in tax year ' + taxYear);
+        return donations;
+    },
+    
+    /**
+     * Creates slip items for donations
+     * @private
+     * @param {string} slipSysId - The slip sys_id
+     * @param {Array} donations - Array of donation objects
+     * @return {number} Number of items created
+     */
+    _createSlipItems: function(slipSysId, donations) {
+        var itemsCreated = 0;
+        
+        for (var i = 0; i < donations.length; i++) {
+            var donation = donations[i];
+            
+            var item = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+            item.initialize();
+            item.donation_slip = slipSysId;
+            item.donation = donation.sys_id;
+            item.donation_amount = donation.amount;
+            item.active_donation_slip_item = true;
+            item.associated_date = new GlideDateTime();
+            
+            if (item.insert()) {
+                itemsCreated++;
+                gs.debug('DonationSlipUtils._createSlipItems: Created item for donation ' + donation.donation_number);
+            } else {
+                gs.error('DonationSlipUtils._createSlipItems: Failed to create item for donation ' + donation.sys_id);
+            }
+        }
+        
+        return itemsCreated;
+    },
+    
+    /**
+     * Batch initiates multiple draft slips
+     * @param {Array} slipSysIds - Array of slip sys_ids (optional, finds all drafts if empty)
+     * @return {object} Summary of batch operation
+     */
+    batchInitiateSlips: function(slipSysIds) {
+        var summary = {
+            totalProcessed: 0,
+            successful: 0,
+            failed: 0,
+            errors: []
+        };
+        
+        var slipsToProcess = slipSysIds || this._findDraftSlipsReadyForInitiation();
+        
+        for (var i = 0; i < slipsToProcess.length; i++) {
+            summary.totalProcessed++;
+            
+            // Pass slip sys_id only, let method read congregant and tax_year from slip
+            var result = this.initiateSlip(slipsToProcess[i]);
+            
+            if (result.success) {
+                summary.successful++;
+            } else {
+                summary.failed++;
+                summary.errors.push('Slip ' + slipsToProcess[i] + ': ' + result.errors.join(', '));
+            }
+        }
+        
+        gs.info('DonationSlipUtils.batchInitiateSlips: Processed ' + summary.totalProcessed + 
+                ', Success: ' + summary.successful + ', Failed: ' + summary.failed);
+        
+        return summary;
+    },
+    
+    /**
+     * Finds draft slips ready for initiation
+     * @private
+     * @return {Array} Array of slip sys_ids
+     */
+    _findDraftSlipsReadyForInitiation: function() {
+        var slips = [];
+        
+        var gr = new GlideRecord('x_1644142_ekkles_0_donation_slip');
+        gr.addQuery('status', 'draft');
+        gr.addNotNullQuery('congregant');
+        gr.addNotNullQuery('tax_year');
+        gr.query();
+        
+        while (gr.next()) {
+            slips.push(gr.sys_id.toString());
+        }
+        
+        gs.debug('DonationSlipUtils._findDraftSlipsReadyForInitiation: Found ' + slips.length + ' slips');
+        return slips;
+    },
+
+    type: 'DonationSlipUtils'
+});]]></content>
+        <external_source>false</external_source>
+        <path>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/SI_DonationSlipUtils.js</path>
+        <sys_class_name>sys_module</sys_class_name>
+        <sys_created_by>vs.code</sys_created_by>
+        <sys_created_on>2025-12-11 21:13:31</sys_created_on>
+        <sys_id>36802f07d0dd46328aea147e48b505b9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>x_1644142_ekkles_0/ekklesium/1.0.0/src/server/script/SI_DonationSlipUtils.js</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_module_36802f07d0dd46328aea147e48b505b9</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-11 21:13:31</sys_updated_on>
+    </sys_module>
+</record_update>
