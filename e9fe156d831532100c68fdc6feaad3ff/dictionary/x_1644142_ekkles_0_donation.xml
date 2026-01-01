@@ -5,10 +5,11 @@
             <choice>
                 <element inactive_on_update="false" label="Refunded" sequence="1" value="refunded"/>
                 <element inactive_on_update="false" label="Captured" sequence="2" value="captured"/>
-                <element inactive_on_update="false" label="Partially Refunded" sequence="4" value="partially_refunded"/>
+                <element inactive="true" inactive_on_update="true" label="Partially Refunded" sequence="1" value="partially_refunded"/>
+                <element inactive_on_update="false" label="Test" sequence="4" value="test"/>
                 <element inactive_on_update="false" label="Completed" sequence="3" value="completed"/>
                 <element inactive_on_update="false" label="Received" sequence="0" value="received"/>
-                <element inactive_on_update="false" label="Fully Refunded" sequence="3" value="fully_refunded"/>
+                <element inactive="true" inactive_on_update="true" label="Fully Refunded" sequence="0" value="fully_refunded"/>
             </choice>
         </element>
         <element label="Amount" max_length="38" name="amount" type="currency"/>
@@ -39,7 +40,7 @@
             </choice>
         </element>
         <element attributes="edge_encryption_enabled=true" label="Donor name" max_length="40" name="donor_name" type="string"/>
-        <element attributes="edge_encryption_enabled=true" choice="1" label="Refund Status" max_length="40" name="refund_status" type="string">
+        <element attributes="edge_encryption_enabled=true" choice="1" label="Refund Status" max_length="40" name="refund_status" type="choice">
             <choice>
                 <element inactive_on_update="false" label="Full Refund" sequence="0" value="full_refund"/>
                 <element inactive_on_update="false" label="Partial Refund" sequence="1" value="partial_refund"/>

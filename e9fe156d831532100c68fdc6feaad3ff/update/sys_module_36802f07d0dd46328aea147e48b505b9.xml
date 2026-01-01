@@ -4,29 +4,130 @@
 DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
     
     /**
+     * Captures a single donation and adds it to a slip
+     * @param {string} slipSysId - The slip sys_id
+     * @param {string} donationSysId - The donation sys_id to capture
+     * @return {object} Result object with success status
+     */
+    captureSingleDonation: function(slipSysId, donationSysId) {
+        var result = {
+            success: false,
+            message: '',
+            slipItemSysId: null,
+            errors: []
+        };
+        
+        if (!slipSysId || !donationSysId) {
+            result.errors.push('Slip sys_id and donation sys_id are required');
+            return result;
+        }
+        
+        // Validate slip exists and is in valid status
+        var slip = new GlideRecord('x_1644142_ekkles_0_donation_slip');
+        if (!slip.get(slipSysId)) {
+            result.errors.push('Slip not found');
+            return result;
+        }
+        
+        // Can only add to draft or initiated slips
+        if (slip.status != 'draft' && slip.status != 'initiated') {
+            result.errors.push('Can only add donations to draft or initiated slips. Current status: ' + slip.status);
+            return result;
+        }
+        
+        // Validate donation exists and is eligible
+        var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+        if (!donation.get(donationSysId)) {
+            result.errors.push('Donation not found');
+            return result;
+        }
+        
+        // Check donation has positive net amount
+        var netAmount = parseFloat(donation.net_amount) || 0;
+        if (netAmount <= 0) {
+            result.errors.push('Donation has zero or negative net amount. Cannot capture.');
+            return result;
+        }
+        
+        // Check donation is in received or captured status
+        var donationStatus = donation.donation_item_status.toString();
+        if (donationStatus != 'received' && donationStatus != 'captured') {
+            result.errors.push('Donation must be in received or captured status. Current status: ' + donationStatus);
+            return result;
+        }
+        
+        // Check donation is tax eligible
+        if (!donation.tax_credit_eligibility) {
+            result.errors.push('Donation is not eligible for tax credit');
+            return result;
+        }
+        
+        // Check donation matches slip's congregant
+        if (donation.congregant.toString() != slip.congregant.toString()) {
+            result.errors.push('Donation congregant does not match slip congregant');
+            return result;
+        }
+        
+        // Check donation matches slip's tax year
+        if (donation.tax_year.toString() != slip.tax_year.toString()) {
+            result.errors.push('Donation tax year does not match slip tax year');
+            return result;
+        }
+        
+        // Check if donation already has an active slip item
+        var existingItem = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+        existingItem.addQuery('donation', donationSysId);
+        existingItem.addQuery('active_donation_slip_item', true);
+        existingItem.query();
+        
+        if (existingItem.hasNext()) {
+            result.errors.push('Donation is already captured on another active slip');
+            return result;
+        }
+        
+        try {
+            // Create slip item with net amount snapshot
+            var item = new GlideRecord('x_1644142_ekkles_0_donation_slip_item');
+            item.initialize();
+            item.donation_slip = slipSysId;
+            item.donation = donationSysId;
+            item.donation_amount = netAmount; // Snapshot net_amount at capture time
+            item.active_donation_slip_item = true;
+            item.associated_date = new GlideDateTime();
+            
+            var itemSysId = item.insert();
+            
+            if (itemSysId) {
+                result.success = true;
+                result.slipItemSysId = itemSysId;
+                result.message = 'Successfully captured donation ' + donation.number + ' with net amount $' + netAmount;
+                
+                gs.info('DonationSlipUtils.captureSingleDonation: ' + result.message);
+            } else {
+                result.errors.push('Failed to create slip item');
+            }
+            
+        } catch (e) {
+            result.errors.push('Error capturing donation: ' + e.message);
+            gs.error('DonationSlipUtils.captureSingleDonation: ' + e.message);
+        }
+        
+        return result;
+    },
+    
+    /**
      * Initiates a draft slip by capturing eligible donations
      * @param {string} slipSysId - The slip sys_id to initiate
-     * @param {string} [congregantSysId] - Optional: The congregant sys_id (defaults to slip.congregant)
-     * @param {string} [taxYear] - Optional: The tax year (defaults to slip.tax_year)
+     * @param {string} [congregantSysId] - Optional: The congregant sys_id
+     * @param {string} [taxYear] - Optional: The tax year
      * @return {object} Result object with success status and details
-     * 
-     * @example
-     * // UI Action - reads from slip record
-     * var result = slipUtils.initiateSlip(current.sys_id.toString());
-     * 
-     * @example
-     * // Override tax year
-     * var result = slipUtils.initiateSlip(slipSysId, null, '2023');
-     * 
-     * @example
-     * // Explicit parameters (API usage)
-     * var result = slipUtils.initiateSlip(slipSysId, congregantSysId, '2024');
      */
     initiateSlip: function(slipSysId, congregantSysId, taxYear) {
         var result = {
             success: false,
             message: '',
             itemsCreated: 0,
+            itemSysIds: [],
             errors: []
         };
         
@@ -77,7 +178,7 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
             }
             
             // Create slip items for each donation
-            var itemsCreated = this._createSlipItems(slipSysId, donations);
+            var createResult = this._createSlipItems(slipSysId, donations);
             
             // Update slip status to initiated
             slip.status = 'initiated';
@@ -85,8 +186,9 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
             slip.update();
             
             result.success = true;
-            result.itemsCreated = itemsCreated;
-            result.message = 'Successfully initiated slip with ' + itemsCreated + ' donation(s)';
+            result.itemsCreated = createResult.itemsCreated;
+            result.itemSysIds = createResult.itemSysIds;
+            result.message = 'Successfully initiated slip with ' + createResult.itemsCreated + ' donation(s)';
             
             gs.info('DonationSlipUtils.initiateSlip: ' + result.message + 
                     ' [Congregant: ' + congregantId + ', Tax Year: ' + slipTaxYear + ']');
@@ -104,7 +206,7 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
      * @private
      * @param {string} congregantSysId - The congregant sys_id
      * @param {string} taxYear - The tax year (e.g., '2024')
-     * @return {Array} Array of donation objects
+     * @return {Array} Array of donation objects with net_amount
      */
     _findEligibleDonations: function(congregantSysId, taxYear) {
         var donations = [];
@@ -118,18 +220,19 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
         gr.addQuery('congregant', congregantSysId);
         gr.addQuery('tax_year', taxYear);
         gr.addQuery('tax_credit_eligibility', true);
-        gr.addQuery('donation_item_status', 'IN', 'received,partially_refunded'); // Include partially refunded
-        gr.orderBy('sys_created_on');
+        gr.addQuery('donation_item_status', 'IN', 'received,captured');
+        gr.addQuery('net_amount', '>', 0); // Only donations with positive net amount
+        gr.orderBy('sys_created_on'); // Oldest first
         gr.query();
         
         while (gr.next()) {
             var netAmount = parseFloat(gr.net_amount) || 0;
             
-            // Only include donations with positive net amount
+            // Double-check net amount is positive
             if (netAmount > 0) {
                 donations.push({
                     sys_id: gr.sys_id.toString(),
-                    amount: netAmount, // Use calculated net amount
+                    netAmount: netAmount, // Use net_amount
                     donation_number: gr.number.toString()
                 });
             }
@@ -144,11 +247,14 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
      * Creates slip items for donations
      * @private
      * @param {string} slipSysId - The slip sys_id
-     * @param {Array} donations - Array of donation objects
-     * @return {number} Number of items created
+     * @param {Array} donations - Array of donation objects with netAmount
+     * @return {object} Object with itemsCreated count and itemSysIds array
      */
     _createSlipItems: function(slipSysId, donations) {
-        var itemsCreated = 0;
+        var result = {
+            itemsCreated: 0,
+            itemSysIds: []
+        };
         
         for (var i = 0; i < donations.length; i++) {
             var donation = donations[i];
@@ -157,19 +263,22 @@ DonationSlipUtils.prototype = Object.extendsObject(EkklesiumUtils, {
             item.initialize();
             item.donation_slip = slipSysId;
             item.donation = donation.sys_id;
-            item.donation_amount = donation.amount;
+            item.donation_amount = donation.netAmount; // Snapshot net_amount at capture time
             item.active_donation_slip_item = true;
             item.associated_date = new GlideDateTime();
             
-            if (item.insert()) {
-                itemsCreated++;
-                gs.debug('DonationSlipUtils._createSlipItems: Created item for donation ' + donation.donation_number);
+            var itemSysId = item.insert();
+            if (itemSysId) {
+                result.itemsCreated++;
+                result.itemSysIds.push(itemSysId);
+                gs.debug('DonationSlipUtils._createSlipItems: Created item for donation ' + donation.donation_number + 
+                        ' with net amount $' + donation.netAmount);
             } else {
                 gs.error('DonationSlipUtils._createSlipItems: Failed to create item for donation ' + donation.sys_id);
             }
         }
         
-        return itemsCreated;
+        return result;
     },
     
     /**

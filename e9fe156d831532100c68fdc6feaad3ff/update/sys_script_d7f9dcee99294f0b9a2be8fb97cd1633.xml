@@ -3,7 +3,7 @@
         <abort_action>false</abort_action>
         <access>package_private</access>
         <action_delete>false</action_delete>
-        <action_insert>true</action_insert>
+        <action_insert>false</action_insert>
         <action_query>false</action_query>
         <action_update>true</action_update>
         <active>true</active>
@@ -15,7 +15,9 @@
         <condition/>
         <description/>
         <execute_function>false</execute_function>
-        <filter_condition/>
+        <filter_condition table="x_1644142_ekkles_0_donation">refund_amountVALCHANGESjavascript:global.getCurrencyFilter('x_1644142_ekkles_0_donation','refund_amount', 'USD;USD')^EQ<item endquery="false" field="refund_amount" goto="false" newquery="false" operator="VALCHANGES" or="false" value="javascript:global.getCurrencyFilter('x_1644142_ekkles_0_donation','refund_amount', 'USD;USD')"/>
+            <item endquery="true" field="" goto="false" newquery="false" operator="=" or="false" value=""/>
+        </filter_condition>
         <is_rest>false</is_rest>
         <message/>
         <name>Calculate Net Amount</name>
@@ -50,15 +52,15 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>d7f9dcee99294f0b9a2be8fb97cd1633</sys_id>
-        <sys_mod_count>0</sys_mod_count>
+        <sys_mod_count>2</sys_mod_count>
         <sys_name>Calculate Net Amount</sys_name>
         <sys_overrides/>
         <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
         <sys_policy/>
         <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
         <sys_update_name>sys_script_d7f9dcee99294f0b9a2be8fb97cd1633</sys_update_name>
-        <sys_updated_by>vs.code</sys_updated_by>
-        <sys_updated_on>2025-12-11 21:13:32</sys_updated_on>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-12-13 04:43:58</sys_updated_on>
         <template/>
         <when>before</when>
     </sys_script>

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function validateRefund() {
+    var refundAmount = parseFloat(document.getElementsByName('sysparm_refund_amount')[0].value);
+    
+    if (!refundAmount || refundAmount <= 0) {
+        alert('Please enter a valid refund amount greater than 0');
+        return false;
+    }
+    return true;
+}]]></client_script>
+        <description>Description</description>
+        <direct>false</direct>
+        <endpoint>x_1644142_ekkles_0_Process_Refund_Dialog.do</endpoint>
+        <html><![CDATA[<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+    <j:set var="jvar_sys_id" value="${sysparm_sys_id}" />
+
+    <g:evaluate>
+        var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+        donation.addQuery('sys_id', '${jvar_sys_id}');
+        donation.query();
+        donation.next();
+    </g:evaluate>
+
+    <style>
+        .refund-dialog {
+            font-family: Arial, sans-serif;
+            padding: 10px;
+        }
+        .section-header {
+            font-size: 16px;
+            font-weight: bold;
+            color: #293e40;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #0066cc;
+        }
+        .info-section {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 20px;
+        }
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .info-label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            color: #212529;
+            font-size: 14px;
+            padding: 6px 10px;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+        }
+        .input-section {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+        }
+        .input-label {
+            font-weight: 600;
+            color: #856404;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .required {
+            color: #dc3545;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 3px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+    </style>
+
+    <div class="refund-dialog">
+        <g:ui_form>
+            <input type="hidden" name="sysparm_sys_id" value="${jvar_sys_id}" />
+            
+            <div class="section-header">Current Donation Details</div>
+            
+            <div class="info-section">
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Original Donation Amount</div>
+                        <div class="info-value">${donation.amount.getDisplayValue()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Net Amount</div>
+                        <div class="info-value">${donation.net_amount.getDisplayValue()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Refund Status</div>
+                        <div class="info-value">${donation.refund_status.getDisplayValue()}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Previous Refund Amount</div>
+                        <div class="info-value">${donation.refund_amount.getDisplayValue()}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="input-section">
+                <div class="input-label">New Refund Amount <span class="required">*</span></div>
+                <input type="number" name="sysparm_refund_amount" step="0.01" min="0" placeholder="Enter refund amount" />
+            </div>
+            
+            <g:dialog_buttons_ok_cancel ok="return validateRefund();" ok_text="Submit" cancel_text="Cancel" />
+        </g:ui_form>
+    </div>
+
+</j:jelly>]]></html>
+        <name>Process_Refund_Dialog</name>
+        <processing_script><![CDATA[(function processRefund() {
+    var sysId = request.getParameter('sysparm_sys_id') || '';
+    var refundAmount = request.getParameter('sysparm_refund_amount') || 0;
+
+    if (sysId && refundAmount) {
+        var donation = new GlideRecord('x_1644142_ekkles_0_donation');
+        if (donation.get(sysId)) {
+            donation.setValue('refund_amount', refundAmount);
+            donation.setValue('refund_status', 'partial_refund');
+            donation.update();
+        }
+
+        // Close the dialog and reload the parent form
+        //var urlOnStack = donation.getTableName() + '.do?sys_id=' + sysId + '&sysparm_stack=no';
+        var urlOnStack = donation.getLink(false);
+        gs.info('Redirecting to: ' + urlOnStack);
+        response.sendRedirect(urlOnStack);
+    
+    }
+
+    gs.addInfoMessage('Refund amount updated successfully');
+})();
+]]></processing_script>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-12-13 19:50:31</sys_created_on>
+        <sys_id>c7d65a2d833132100c68fdc6feaad3b3</sys_id>
+        <sys_mod_count>110</sys_mod_count>
+        <sys_name>Process_Refund_Dialog</sys_name>
+        <sys_package display_value="Ekklesium" source="x_1644142_ekkles_0">e9fe156d831532100c68fdc6feaad3ff</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Ekklesium">e9fe156d831532100c68fdc6feaad3ff</sys_scope>
+        <sys_update_name>sys_ui_page_c7d65a2d833132100c68fdc6feaad3b3</sys_update_name>
+        <sys_updated_by>vs.code</sys_updated_by>
+        <sys_updated_on>2025-12-21 07:55:44</sys_updated_on>
+    </sys_ui_page>
+</record_update>
